@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Aplicación Gestor - Hospital</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <!-- VISTA LOGIN -->
+    <div id="vistaLogin" class="vista activa">
+        <h1>Aplicación Gestor</h1>
+        <h2>ACCESO</h2>
+        <div>
+            <label>Usuario:</label>
+            <input type="text" id="loginUser">
+        </div>
+        <div>
+            <label>Contraseña:</label>
+            <input type="password" id="loginPass">
+        </div>
+        <div>
+            <button onclick="gestorJS.hacerLogin()">Entrar</button>
+            <button onclick="gestorJS.mostrarRegistro()">Registrarse</button>
+        </div>
+    </div>
+
+    <!-- VISTA REGISTRO / MODIFICACIÓN GESTOR -->
+    <div id="vistaRegistro" class="vista">
+        <h1>Aplicación Gestor</h1>
+        <h2>DATOS GESTOR</h2>
+        <div>
+            <label>Nombre:</label>
+            <input type="text" id="regNombre">
+        </div>
+        <div>
+            <label>Apellidos:</label>
+            <input type="text" id="regApellidos">
+        </div>
+        <div>
+            <label>Login:</label>
+            <input type="text" id="regUser">
+        </div>
+        <div>
+            <label>Contraseña:</label>
+            <input type="password" id="regPass">
+        </div>
+        <div>
+            <button onclick="gestorJS.guardarGestor()">Guardar</button>
+            <button class="secundario" onclick="gestorJS.cancelarRegistro()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- VISTA PRINCIPAL (LISTADO RECURSOS) -->
+    <div id="vistaPrincipal" class="vista">
+        <h1>Aplicación Gestor</h1>
+        <h2>INICIO</h2>
+
+        <div class="saludo">
+            <span id="saludo">Bienvenido</span>
+            <span>
+                <a onclick="gestorJS.editarGestor()">Editar datos</a>
+                <a onclick="gestorJS.salir()">Salir</a>
+            </span>
+        </div>
+
+        <div class="filtros">
+            <h3>Búsqueda de recursos</h3>
+
+            <label>Categoría:</label>
+            <select id="filtroCategoria">
+                <option value="Todos">Todos</option>
+            </select>
+
+            <label>Modelo:</label>
+            <select id="filtroModelo">
+                <option value="Todos">Todos</option>
+            </select>
+
+            <label>Ubicación:</label>
+            <select id="filtroUbicacion">
+                <option value="Todos">Todos</option>
+            </select>
+
+            <label>Estado:</label>
+            <select id="filtroEstado">
+                <option value="Todos">Todos</option>
+                <option value="0">Operativo</option>
+                <option value="1">Baja</option>
+                <option value="2">Mantenimiento</option>
+            </select>
+
+            <button onclick="gestorJS.buscarRecursos()">Buscar</button>
+        </div>
+
+        <hr>
+
+        <h3>Recursos</h3>
+        <table id="tablaRecursos">
+            <thead>
+                <tr>
+                    <th>N. Serie</th>
+                    <th>Categoría</th>
+                    <th>Modelo</th>
+                    <th>Ubicación</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <button onclick="gestorJS.nuevoRecurso()">Añadir Recurso</button>
+
+        <hr>
+
+        <!-- ===== PRÁCTICA 3 - PARTE 1: MINISTERIO DE SANIDAD ===== -->
+        <h3>Envío de reservas al Ministerio de Sanidad</h3>
+        <div>
+            <span>Área médica asignada: <b>Neurología (id_area 12)</b></span>
+            <button onclick="gestorJS.enviarReservasMinisterio()">Enviar reservas</button>
+        </div>
+
+        <h3>Ranking de reservas por área médica</h3>
+        <table id="tablaRanking">
+            <thead>
+                <tr>
+                    <th>Posición</th>
+                    <th>Área médica</th>
+                    <th>Nº reservas</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button onclick="gestorJS.cargarRanking()">Actualizar ranking</button>
+
+        <hr>
+
+        <h3>Avisos</h3>
+        <table id="tablaAvisos">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Origen</th>
+                    <th>Texto del aviso</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- VISTA FICHA RECURSO -->
+    <div id="vistaFicha" class="vista">
+        <h1>Aplicación Gestor</h1>
+        <h2>RECURSO</h2>
+
+        <h3>Datos recurso</h3>
+        <div>
+            <label>Categoría:</label>
+            <select id="fichaCategoria" onchange="gestorJS.cambioCategoria()"></select>
+        </div>
+        <div>
+            <label>Modelo:</label>
+            <select id="fichaModelo"></select>
+        </div>
+        <div>
+            <label>Núm. Serie:</label>
+            <input type="text" id="fichaSerie">
+        </div>
+        <div>
+            <label>Ubicación:</label>
+            <select id="fichaUbicacion"></select>
+        </div>
+        <div>
+            <label>Estado:</label>
+            <select id="fichaEstado">
+                <option value="0">Operativo</option>
+                <option value="1">Baja</option>
+                <option value="2">Mantenimiento</option>
+            </select>
+        </div>
+        <button onclick="gestorJS.guardarRecurso()">Guardar</button>
+
+        <hr>
+
+        <h3>Reservas</h3>
+        <table id="tablaReservas">
+            <thead>
+                <tr>
+                    <th>Sanitario</th>
+                    <th>H. estim.</th>
+                    <th>F. Petición</th>
+                    <th>F. Inicio</th>
+                    <th>F. Fin</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h3>Reseñas</h3>
+        <table id="tablaResenyas">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Sanitario</th>
+                    <th>Valoración</th>
+                    <th>Comentario</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <button onclick="gestorJS.volverListado()">Volver al listado</button>
+    </div>
+
+    <script src="rest.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
