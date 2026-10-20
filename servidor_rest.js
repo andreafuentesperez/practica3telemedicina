@@ -9,8 +9,8 @@ const { createClient } = require("@supabase/supabase-js");
 
 // 2. Configurar con la URL del proyecto y la Public Key (anon key)
 //    (Supabase > Project Settings > API)
-const supabaseUrl = "https://TU-PROYECTO.supabase.co";   // <--- Pega aquí tu Project URL
-const supabaseKey = "TU_PUBLIC_ANON_KEY_AQUI";           // <--- Pega aquí tu anon public key
+const supabaseUrl = "https://kcxndoizmbppipkbsheh.supabase.co";   // <--- Pega aquí tu Project URL
+const supabaseKey = "sb_publishable_0sG2TyTonRtphymsNML8eg_gS7v4ZuV";           // <--- Pega aquí tu anon public key
 const supabase = createClient(supabaseUrl, supabaseKey);
 // ==========================================================================
 
